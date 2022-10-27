@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "nonebot-plugin-pjsekaibot"
+version = "2.0.0"
+description = "This is a simple nonebot2 score prober plugin for Project Sekai."
+authors = ["CuSO4_Deposit <Curvi@night.genjitsu>", "Li2Zr(OH)6 <Linearis@night.genjitsu>"]
+license = "AGPL-3.0-or-later"
+readme = ["README.md", "README_CN.md"]
+homepage = "https://github.com/Curvi-Linearis/nonebot_plugin_pjsekaibot"
+repository = "https://github.com/Curvi-Linearis/nonebot_plugin_pjsekaibot"
+documentation = "https://github.com/Curvi-Linearis/nonebot_plugin_pjsekaibot#readme"
+keywords = ["nonebot2", "pjsk"]
+packages = [{include = "nonebot_plugin_pjsekaibot"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+aiohttp = "^3.8.3"
+APScheduler = "^3.9.1"
+loguru = "^0.6.0"
+nb-cli = "^0.6.6"
+nonebot-adapter-onebot = "^2.0.0-beta.1"
+nonebot-plugin-apscheduler = "^0.2.0"
+nonebot2 = "^2.0.0rc1"
+Pillow = ">=9.1, <10.0"
+prettytable = "^3.4.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
