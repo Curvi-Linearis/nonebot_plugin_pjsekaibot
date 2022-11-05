@@ -268,7 +268,6 @@ def b30single(diff, musics):
         # print(musictitle, font.getsize(musictitle))
 
         thumbnailpath = Path(f'./data/ProjectSekai/assets/Sekaibest/thumbnail/music_jacket_rip/jacket_s_{str(diff["musicId"]).zfill(3)}.png')
-        pjsklogger.warning(thumbnailpath.exists())
         jacket = Image.open(thumbnailpath.as_posix())
         jacket = jacket.resize((186, 186))
         pic.paste(jacket, (32, 28))
