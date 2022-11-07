@@ -4,11 +4,15 @@ Read in English | [简体中文](./README_CN.md)
 
 This is a simple Project Sekai score prober plugin for my personal use.
 
+If you are not familiar with this project, think twice before deploy it, as it is complicated to deploy and may not work as well as you think.
+
 ## Environment
 
 This plugin is tested on Ubuntu 20.04. You may have to modify some details of code to run on a different OS. If you are on Windows, you can run [Unibot distributed](https://docs.unipjsk.com/distributed/), which has a much better performance.
 
 This plugin is based on [nonebot2](nb2.baka.icu) and [go-cqhttp](https://github.com/Mrs4s/go-cqhttp).
+
+This plugin almost entirely relies on [Unibot](https://docs.unipjsk.com/) api. Please support [Unibot](https://github.com/watagashi-uni/Unibot)!
 
 ## Installation
 
@@ -52,7 +56,9 @@ In the following, we refer to the directory where your `bot.py` is at as `(root)
 
 6. Since you don't want others to start an asset update at their will, you can modify `(plugin)/handler/admin.py`, uncomment the commented line in the rule function, and modify the whitelist. Since then, only the ones on your white list can call `/pjadmin`.
 
-7. If everything is OK, you can change the logger settings in `bot.py`, switch the logger level to "WARNING". It's not good to run a bot in production with debug logging level, as it may leak sensitive information.
+7. Configure your notify server in `(plugin)/modules/ntfy.py`. If you don't have one, maybe you have to comment out the code calling `Notify()` function.
+
+8. If everything is OK, you can change the logger settings in `bot.py`, switch the logger level to "WARNING". It's not good to run a bot in production with debug logging level, as it may leak sensitive information.
 
 ## Command
 

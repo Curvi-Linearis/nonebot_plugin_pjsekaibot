@@ -4,11 +4,15 @@ Read in [English](./README.md) | 简体中文
 
 这是一个自用的Project Sekai简单查分插件。
 
+如果您不了解此插件，部署前请三思。因为它部署起来比较麻烦，且运行效果可能不及你的想象。
+
 ## 环境
 
 此插件在Ubuntu 20.04上经过测试。如果您在其他系统上运行，可能需要修改一点代码细节。如果您使用Windows服务器，更推荐部署[Unibot分布式](https://docs.unipjsk.com/distributed/)，其功能远优于此插件。
 
 此插件基于 [nonebot2](nb2.baka.icu) 和 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp)。
+
+此插件几乎完全依赖[Unibot](https://docs.unipjsk.com/) api。请多多支持[Unibot](https://github.com/watagashi-uni/Unibot)！
 
 ## 安装
 
@@ -52,7 +56,9 @@ Read in [English](./README.md) | 简体中文
 
 6. 若你不希望任何人随意唤起`/pjadmin`更新资源，可以前往`(plugin)/handler/admin.py`，修改rule函数中的白名单。从此只有白名单中的QQ号可以唤起 `/pjadmin`。
 
-7. 一切都调试好后，您可以修改 `bot.py`中logger的日志记录level到 "WARNING"。实际使用时不应该使用debug level，这容易泄露敏感信息。
+7. 在`(plugin)/modules/ntfy.py`中配置您的notify服务器信息。如果不配置此项，你需要注释掉调用`Notify()`函数的相关代码。
+
+8. 一切都调试好后，您可以修改 `bot.py`中logger的日志记录level到 "WARNING"。实际使用时不应该使用debug level，这容易泄露敏感信息。
 
 ## 命令
 
