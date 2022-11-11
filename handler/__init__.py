@@ -29,9 +29,12 @@ from nonebot_plugin_apscheduler import scheduler
 #import asyncio
 
 from ..modules.downloader import Run_every_30_min, Run_every_1_day
+#from ..modules.you_cannot_go_to_sleep import Its_25ji_now
 
 scheduler.scheduled_job("cron", minute="*/30", id="pjsk1")(Run_every_30_min)
 scheduler.scheduled_job("cron", day="*/1", id="pjsk2")(Run_every_1_day)
+#scheduler.scheduled_job("cron", hour='1', id="pjsk3", jitter=5)(Its_25ji_now)
+
 #loop = asyncio.get_event_loop()
 #loop.run_until_complete(Run_every_30_min())
 #result = loop.run_until_complete(Run_every_1_day())

@@ -1,6 +1,9 @@
 import json, re, asyncio, sqlite3, aiohttp
 from pathlib import Path
 from ..logger import pjsklogger
+from nonebot.adapters.onebot.v11 import MessageSegment
+from nonebot import get_bots
+from .ntfy import Notify
 
     
 async def Get_response(url, headers=None):
@@ -70,4 +73,15 @@ def ReadConfig():
         return
     return configJson
 
+
+@pjsklogger.catch
+async def SendMessage(send_type, target_id, message):
+    (bot,) = get_bots().values()
+    return await bot.call_api(
+        "send_" + send_type + "_msg",
+        **{
+            "message": message,
+            "user_id" if send_type == "private" else "group_id": target_id,
+        },
+    )
 
