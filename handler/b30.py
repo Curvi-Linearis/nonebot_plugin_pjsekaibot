@@ -7,6 +7,7 @@ from ..logger import pjsklogger
 from ..matcher import sekai, twsekai
 from ..modules.utils import Get_response, Fetch_id, SpaceRecog, ReadConfig
 from ..modules.imagemodules import DeleteByURI
+from ..modules.ntfy import Notify
 from sqlite3 import OperationalError
 import requests, json, time
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
@@ -31,7 +32,7 @@ async def pjskb30(qqid, server = "jp"):
         targetUserId = Fetch_id(qqid, server)
     except OperationalError:
         pjsklogger.warning(f"{qqid} not in database.")
-        return
+        return None
 
     try:
         url = configJson["API"]["UnipjskAPI"][server]["profile"].format(targetUserId=targetUserId)
@@ -266,11 +267,14 @@ def b30single(diff, musics):
             musictitle = musictitle[:int(len(musictitle)*(345/size[0]))] + '...'
         draw.text((238, 84), musictitle, '#000000', font)
         # print(musictitle, font.getsize(musictitle))
-
-        thumbnailpath = Path(f'./data/ProjectSekai/assets/Sekaibest/thumbnail/music_jacket_rip/jacket_s_{str(diff["musicId"]).zfill(3)}.png')
-        jacket = Image.open(thumbnailpath.as_posix())
-        jacket = jacket.resize((186, 186))
-        pic.paste(jacket, (32, 28))
+        
+        try:
+            thumbnailpath = Path(f'./data/ProjectSekai/assets/Sekaibest/thumbnail/music_jacket_rip/jacket_s_{str(diff["musicId"]).zfill(3)}.png')
+            jacket = Image.open(thumbnailpath.as_posix())
+            jacket = jacket.resize((186, 186))
+            pic.paste(jacket, (32, 28))
+        except as e:
+            Notify("Generate b30 failed. Error:{}".format(e.info["msg"]))
 
         draw.ellipse((5, 5, 5+60, 5+60), fill=color[diff['musicDifficulty']])
         font = ImageFont.truetype((fontpath / 'SourceHanSansCN-Bold.otf').as_posix(), 38)
@@ -317,6 +321,8 @@ async def B30_jp(event: Event, cmd = RawCommand()):
     qqid = event.get_user_id()
     pjsklogger.debug("Calling func B30_jp, qqid:[\"{qqid}\"]")
     URI = await pjskb30(qqid)
+    if URI is None:
+        await sekai.finish(configJson["MESSAGE"]["ERROR"]["NO_BIND"])
     await sekai.send(MessageSegment.image(URI))
     await sleep(3)
     DeleteByURI(URI)
