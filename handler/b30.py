@@ -273,8 +273,8 @@ def b30single(diff, musics):
             jacket = Image.open(thumbnailpath.as_posix())
             jacket = jacket.resize((186, 186))
             pic.paste(jacket, (32, 28))
-        except as e:
-            Notify("Generate b30 failed. Error:{}".format(e.info["msg"]))
+        except FileNotFoundError:
+            pass
 
         draw.ellipse((5, 5, 5+60, 5+60), fill=color[diff['musicDifficulty']])
         font = ImageFont.truetype((fontpath / 'SourceHanSansCN-Bold.otf').as_posix(), 38)
